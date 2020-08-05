@@ -16,7 +16,7 @@ function SiderBarView() {
   return (
     <div>
       111111111111111111111111111111111111111111111111111111111111111111
-      <a onClick={jump}>跳转到角色管理</a>
+      <a onClick={jump}>跳转到商品列表</a>
     </div>
   );
 }

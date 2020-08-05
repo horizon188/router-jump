@@ -1,31 +1,21 @@
 import { NavLink } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
 import { AppstoreOutlined } from '@ant-design/icons';
 import treeData from './menuData';
 import style from './style.module.less';
+import { withRouter, useLocation, useParams } from 'react-router-dom';
 
-interface InitProps {
-  pathName: string;
-}
-interface InitState {
-  initPathName: string;
-}
 interface MenuList {
   value: string;
   label: string;
   url?: string;
   children: any;
 }
-function SiderBarView(params: InitProps) {
-  const initState: InitState = {
-    initPathName: params.pathName,
-  };
-  const [pathName, setCount] = useState(initState.initPathName);
-  useEffect(() => {
-    setCount(params.pathName);
-  });
+function SiderBarView() {
+  console.log('useParams', useParams());
+  let nowPathName: string = useLocation().pathname;
 
   const renderMenuItem = (menuArray: MenuList[]) => {
     // 遍历菜单列表
@@ -64,8 +54,8 @@ function SiderBarView(params: InitProps) {
       <Menu
         style={{ width: 256 }}
         mode="inline"
-        selectedKeys={treeData.urlMapValueObj[pathName]}
-        defaultSelectedKeys={treeData.urlMapValueObj[pathName]}
+        selectedKeys={treeData.urlMapValueObj[nowPathName]}
+        defaultSelectedKeys={treeData.urlMapValueObj[nowPathName]}
         // onClick={handleClick}
         // openKeys={[this.AppStore.state.menuSelectKey]}
         // defaultOpenKeys={[this.AppStore.state.menuSelectKey]}
@@ -75,5 +65,5 @@ function SiderBarView(params: InitProps) {
     </div>
   );
 }
-
-export default SiderBarView;
+const SiderBarViewWithRouter = withRouter(SiderBarView);
+export default SiderBarViewWithRouter;

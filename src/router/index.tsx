@@ -16,7 +16,7 @@ let router = [
   },
 ];
 
-const routerRender = () => {
+function routerRender() {
   return (
     <Switch>
       {router.map((route, idx) => {
@@ -29,6 +29,6 @@ const routerRender = () => {
       })}
     </Switch>
   );
-};
+}
 
 export default routerRender;

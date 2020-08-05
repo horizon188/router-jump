@@ -37,4 +37,16 @@ let treeData = [
   },
 ];
 
-export default treeData;
+function handleTree(arr, obj) {
+  arr.map((item) => {
+    if (item.children) {
+      handleTree(item.children, obj);
+    }
+    obj[item.url] = item.value;
+  });
+  return obj;
+}
+
+let urlMapValueObj = handleTree(treeData, {});
+console.log('urlMapValueObj', urlMapValueObj);
+export default { treeData, urlMapValueObj };

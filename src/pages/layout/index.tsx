@@ -1,8 +1,7 @@
-import React from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import style from './style.module.less';
 import { Layout } from 'antd';
-import SiderContent from './../sider';
+import SiderContent from './../siderContent';
 import MainContent from '../goodsMgt';
 import AuthMgt from './../authMgt';
 import { Route, Switch } from 'react-router-dom';
@@ -21,37 +20,37 @@ let router = [
     name: '角色管理',
   },
 ];
-
-export default () => {
-  // declare function create(o: object | null): void;
-  // create({ prop: 0 });
-  // let someValue: any = "this is a string";
-  // let strLength: number = (<string>{someValue}).length;
-
+interface IState {
+  intPathName: string;
+}
+function LayoutView() {
+  const initState: IState = {
+    intPathName: '1',
+  };
+  const [pathName, setCount] = useState(initState.intPathName);
+  useEffect(() => {
+    let nowPathName: string = window.location.href.split('#')[1];
+    setCount(nowPathName);
+  });
   return (
     <div className={style.layout}>
+      {pathName}
       <Layout>
         <Sider>
-          <SiderContent />
+          <SiderContent pathName={pathName} />
         </Sider>
         <Layout>
           <Header>Header</Header>
           <Content>
             <Switch>
-              {router.map(
-                (route, idx) => {
-                  const baseParam = {
-                    key: 'route_' + idx,
-                    path: route.path,
-                    exact: true,
-                  };
-                  // if (route.render) {
-                  //   return <Route {...baseParam} component={route.render} />;
-                  // } else {
-                  return <Route {...baseParam} component={route.component} />;
-                }
-                // }
-              )}
+              {router.map((route, idx) => {
+                const baseParam = {
+                  key: 'route_' + idx,
+                  path: route.path,
+                  exact: true,
+                };
+                return <Route {...baseParam} component={route.component} />;
+              })}
             </Switch>
           </Content>
           <Footer>Footer</Footer>
@@ -59,4 +58,6 @@ export default () => {
       </Layout>
     </div>
   );
-};
+}
+
+export default LayoutView;

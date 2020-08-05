@@ -9,15 +9,32 @@ import treeData from './menuData';
 import style from './style.module.less';
 // import mod from './AppStore.js';
 // console.log('mod', mod);
-
+interface IState {
+  pathName: string;
+}
 @inject('AppStore')
 @observer
-class SiderBarView extends Component {
+class SiderBarView extends Component<{ pathName: string }> {
   AppStore: any;
+  pathName: string;
+  state: IState;
   constructor(props: any) {
     super(props);
     this.AppStore = props.AppStore;
+    this.pathName = props.pathName;
+    this.state = { pathName: props.pathName };
   }
+  componentWillReceiveProps(nextProps: any) {
+    this.setState({ pathName: nextProps.pathName });
+  }
+
+  // shouldComponentUpdate(nextProps:any) {
+
+  //   return true;
+  // }
+  // shouldComponentUpdate(nextProps: any) {
+  //   console.log('sss', nextProps);
+  // }
   handleClick = (e: any) => {
     this.AppStore.handleSelectKey(e.key);
   };
@@ -38,7 +55,7 @@ class SiderBarView extends Component {
               title={
                 <span>
                   <AppstoreOutlined />
-                  <span>{item.label}</span>
+                  <span>{item.label + this.state.pathName}</span>
                 </span>
               }
             >
@@ -66,9 +83,9 @@ class SiderBarView extends Component {
           // openKeys={[this.AppStore.state.menuSelectKey]}
           defaultOpenKeys={[this.AppStore.state.menuSelectKey]}
           mode="inline"
-          selectedKeys={[this.AppStore.state.menuSelectKey]}
+          selectedKeys={treeData.urlMapValueObj[this.state.pathName]}
         >
-          {renderMenuItem(treeData)}
+          {renderMenuItem(treeData.treeData)}
         </Menu>
       </div>
     );

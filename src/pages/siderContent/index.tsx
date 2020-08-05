@@ -13,8 +13,10 @@ interface MenuList {
   url?: string;
   children: any;
 }
-function SiderBarView() {
-  console.log('useParams', useParams());
+
+function SiderBarView(params: any) {
+  const { slug } = useParams();
+  console.log(params, 'useParams', slug);
   let nowPathName: string = useLocation().pathname;
 
   const renderMenuItem = (menuArray: MenuList[]) => {
@@ -57,7 +59,7 @@ function SiderBarView() {
         selectedKeys={treeData.urlMapValueObj[nowPathName]}
         defaultSelectedKeys={treeData.urlMapValueObj[nowPathName]}
         // onClick={handleClick}
-        // openKeys={[this.AppStore.state.menuSelectKey]}
+        // openKeys={treeData.urlMapValueObj[nowPathName].split('-')[0]}
         // defaultOpenKeys={[this.AppStore.state.menuSelectKey]}
       >
         {renderMenuItem(treeData.treeData)}

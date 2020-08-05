@@ -1,10 +1,12 @@
 import React from 'react';
 // import { observer } from 'mobx-react';
 import { useHistory } from 'react-router-dom';
+import { inject } from 'mobx-react';
 
 // @observer
 // 函数怎么用Decorators~
-function SiderBarView() {
+function SiderBarView(params: any) {
+  console.log('params', params.AppStore.state.menuSelectKey);
   // const jumpAuth = ():void => {};
   // 定义了any就没报错了~
   let history: any = useHistory();
@@ -21,4 +23,4 @@ function SiderBarView() {
   );
 }
 
-export default SiderBarView;
+export default inject('AppStore')(SiderBarView);

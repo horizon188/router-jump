@@ -1,37 +1,24 @@
-// import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-// import { useHistory } from "react-router-dom";
-// import mod from './AppStore.js';
-// console.log('mod', mod);
-// let history = useHistory();
-@inject('AppStore')
-@observer
-class SiderBarView extends Component {
-  AppStore: any;
-  history: any;
-  constructor(props: any) {
-    super(props);
-    this.AppStore = props.AppStore;
-    this.history = props.history;
-  }
-  jumpAuth = () => {
-    this.history.push('/authMgt/roleMgt');
-    this.AppStore.handleSelectKey('2-1');
+import React from 'react';
+// import { observer } from 'mobx-react';
+import { useHistory } from 'react-router-dom';
+
+// @observer
+// 函数怎么用Decorators~
+function SiderBarView() {
+  // const jumpAuth = ():void => {};
+  // 定义了any就没报错了~
+  let history: any = useHistory();
+
+  const jump = (): any => {
+    history.push('/authMgt/roleMgt');
   };
-  render() {
-    return (
-      <div>
-        111111111111111111111111111111111111111111111111111111111111111111
-        <a onClick={this.jumpAuth}>跳转到角色管理</a>
-      </div>
-    );
-  }
+
+  return (
+    <div>
+      111111111111111111111111111111111111111111111111111111111111111111
+      <a onClick={jump}>跳转到角色管理</a>
+    </div>
+  );
 }
+
 export default SiderBarView;
-
-// export default () => {
-//   return (
-
-//   );
-// };
